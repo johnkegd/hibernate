@@ -4,18 +4,25 @@ import java.util.List;
 
 import com.johnkegd.hibernate.model.Teacher;
 
-public class TeacherDaoImpl implements TeacherDao {
+public class TeacherDaoImpl extends JohnkegdSession implements TeacherDao {
+	
+	private JohnkegdSession johnkegdSession;
+	
+	public TeacherDaoImpl() {
+		this.johnkegdSession = new JohnkegdSession();
+	}
 
 	@Override
 	public void saveTeacher(Teacher teacher) {
-		// TODO Auto-generated method stub
 
+		johnkegdSession.getSession().persist(teacher);
+		johnkegdSession.getSession().getTransaction().commit();
 	}
 
 	@Override
 	public List<Teacher> getAllTeachers() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return johnkegdSession.getSession().createQuery("from Teacher").list();
 	}
 
 	@Override

@@ -6,13 +6,20 @@ import org.hibernate.cfg.Configuration;
 
 public class JohnkegdSession {
 	
-	public Session getSession() {
-		SessionFactory sf;
-		Configuration config = new Configuration();
-		config.configure();
-		sf = config.buildSessionFactory();
-		Session session = sf.openSession();
-		return session;
+	private Session session;
+	
+	public JohnkegdSession() {
+			Configuration config = new Configuration();
+			config.configure();
+			SessionFactory sf = config.buildSessionFactory();
+			this.session = sf.openSession();
+			this.session.beginTransaction();
 	}
+	
+
+	public Session getSession() {
+		return this.session;
+	}
+	
 
 }
