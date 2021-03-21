@@ -21,25 +21,35 @@ public class TeacherDaoImpl extends JohnkegdSession implements TeacherDao {
 
 	@Override
 	public List<Teacher> getAllTeachers() {
-		
 		return johnkegdSession.getSession().createQuery("from Teacher").list();
 	}
 
 	@Override
 	public void deleteTeacherById(Long idTeacher) {
-		// TODO Auto-generated method stub
-
+		Teacher teacher = findById(idTeacher);
+		johnkegdSession.getSession().delete(teacher);
+		johnkegdSession.getSession().getTransaction().commit();
+		System.out.println("Teacher deleted");
 	}
 
 	@Override
 	public void updateTeacher(Teacher teacher) {
-		// TODO Auto-generated method stub
-
+		johnkegdSession.getSession().update(teacher);
+		johnkegdSession.getSession().getTransaction().commit();
 	}
 
 	@Override
 	public Teacher findById(Long idTeacher) {
-		// TODO Auto-generated method stub
+		try {
+			Teacher teacher = johnkegdSession.getSession().find(Teacher.class, idTeacher);
+			if (teacher == null) {
+				throw new NullPointerException();
+			}
+			return teacher;
+		} catch(NullPointerException e) {
+			System.out.println("Teacher not Found:" + e);
+		}
+		
 		return null;
 	}
 

@@ -9,16 +9,23 @@ public class App {
 
 	public static void main(String[] args) {
 	
+	TeacherDaoImpl teacherDaoImpl = new TeacherDaoImpl();
+	Teacher changer = new Teacher("Change","avatar");
+	changer.setIdTeacher(new Long(3));
 	/*
 	Teacher gwendolin = new Teacher("Gwendolin Rotach","avatar");
 	teacherDaoImpl.saveTeacher(gwendolin);
-	*/
-	TeacherDaoImpl teacherDaoImpl = new TeacherDaoImpl();
+	
 	List<Teacher> teachersList = teacherDaoImpl.getAllTeachers();
 	
 	for(Teacher teacher : teachersList) {
 		System.out.println(teacher.getName());
 		}
+	*/
+
+	
+	teacherDaoImpl.deleteTeacherById(new Long(3));
+	
 	}
 
 }
